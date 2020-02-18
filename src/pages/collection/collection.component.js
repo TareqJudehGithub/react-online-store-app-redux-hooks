@@ -3,11 +3,10 @@ import React from "react";
 import CollectionItem from "../../components/collection-item/collection-item.component";
 import {connect} from "react-redux";
 import {selectCollection} from "../../redux/shop/shop.selectors";
-
 import "./collection.styles.scss";
 
 const CollectionPage =  ({ collections }) => {
-    
+     console.log(collections);
    const { title, items} = collections;
      return (
           <div className="collection-page">

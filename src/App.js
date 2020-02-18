@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect} from 'react';
 //styled component:
 
 import { Route, Switch, Redirect } from "react-router-dom";
@@ -30,14 +30,14 @@ const App = ({ CurrentUser, currentUser }) => {
 const HomePageWithSpinner = withSpinner(HomePage);
 const [isLoading, setIsLoading ] = useState(true);
   
-const persistDataOverRender = useRef({ willUnmount: false });
+// const persistDataOverRender = useRef({ willUnmount: false });
   useEffect(() => {
-     auth.onAuthStateChanged(async userAuth => {
-      persistDataOverRender.current.willUnmount = true;
+    const persistDataOverRender = auth.onAuthStateChanged(async userAuth => {
+      // persistDataOverRender.current.willUnmount = true;
       if (userAuth) {
         const userRef =  await createUserProfileDocument(userAuth);
         
-        !persistDataOverRender.current.willUnmount &&
+        // !persistDataOverRender.current.willUnmount &&
         userRef.onSnapshot(snapShot => {   
           CurrentUser({      
              id: snapShot.id,
@@ -52,6 +52,9 @@ const persistDataOverRender = useRef({ willUnmount: false });
         setIsLoading(false);
       }, 500)
   
+      return () => {
+        persistDataOverRender()
+      }
   }, [CurrentUser])
 
 
