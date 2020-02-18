@@ -30,14 +30,12 @@ const App = ({ CurrentUser, currentUser }) => {
 const HomePageWithSpinner = withSpinner(HomePage);
 const [isLoading, setIsLoading ] = useState(true);
   
-// const persistDataOverRender = useRef({ willUnmount: false });
   useEffect(() => {
     const persistDataOverRender = auth.onAuthStateChanged(async userAuth => {
-      // persistDataOverRender.current.willUnmount = true;
+     
       if (userAuth) {
         const userRef =  await createUserProfileDocument(userAuth);
         
-        // !persistDataOverRender.current.willUnmount &&
         userRef.onSnapshot(snapShot => {   
           CurrentUser({      
              id: snapShot.id,
@@ -56,7 +54,6 @@ const [isLoading, setIsLoading ] = useState(true);
         persistDataOverRender()
       }
   }, [CurrentUser])
-
 
     return (
       <div>
