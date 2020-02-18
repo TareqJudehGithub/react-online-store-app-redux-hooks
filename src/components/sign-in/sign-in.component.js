@@ -1,38 +1,42 @@
-import React from "react";
+import React, {useState, useRef, useEffect} from "react";
 import FormInput from "../form-input/form-input.component";
 import CustomButton from "../custom-button/custom-button-component";
 import  {signInWithGoogle, auth} from "../../firebase/firebase.utils";
 
 import "./sign-in.styles.scss";
 
-class Signin extends React.Component {
-     constructor(props){
-          super(props)
-               this.state= {
-                    email: "",
-                    password: ""                 
-               }
-     }
-handleSumbit = async (event) => {
-     event.preventDefault();
-     const { email, password } = this.state;
-     try {
-          await auth.signInWithEmailAndPassword(email, password);
-          this.setState({ //clears the Sign In form
+const Signin = () => {
+    
+          const [userCredentials, setUserCredentials ] = useState({
                email: "",
-               password: ""    
-          })
-     } catch (error) {
-          console.log(error);
+               password: ""
+          });
+          const persistDataOverRender = useRef({ willUnmount: false});
+          const { email, password } = userCredentials;
+ 
+          useEffect(() => {
+               persistDataOverRender.current.willUnmount = true;
+          }, []);
+
+     const handleSumbit = async (event) => {
+          event.preventDefault();
+          try {
+               await auth.signInWithEmailAndPassword(email, password);
+               !persistDataOverRender.current.willUnmount &&
+               setUserCredentials({ //clears the Sign In form
+                    email: "",
+                    password: ""    
+               });
+
+          } catch (error) {
+               console.log(error);
+          }
+
      }
-
-}
-handleChange = (event) => {
-     const { value, name } =event.target;
-     this.setState({[name]: value})
-}
-
-render(){
+     const handleChange = (event) => {
+          const { value, name } =event.target;
+          setUserCredentials({...userCredentials, [name]: value})
+     }
 
      return (
           <div className="sign-in">
@@ -40,14 +44,14 @@ render(){
                <h2>SIGN IN</h2>
 
                <form
-               onSubmit={this.handleSumbit}>
+               onSubmit={handleSumbit}>
 
                     <FormInput 
                     name="email"
                     type="email"
                     // placeholder="example@email.com" 
-                    value={this.state.email}
-                    onChangeProp={this.handleChange}
+                    value={email}
+                    onChangeProp={handleChange}
                     label="email"
                     required
                     />
@@ -56,8 +60,8 @@ render(){
                     name="password"
                     type="password"
                     // placeholder="enter password"
-                    value={this.state.password}
-                    onChangeProp={this.handleChange}
+                    value={password}
+                    onChangeProp={handleChange}
                     label="password"
                     required
                     />
@@ -75,6 +79,6 @@ render(){
                </form>
      </div>
           )
-     }
+     
 }
 export default Signin;

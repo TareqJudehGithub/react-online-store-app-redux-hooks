@@ -33,8 +33,7 @@ export const firestore =firebase.firestore(); //import "firebase/firestore";
 //creating a func to allows us to take that user we logged on with in Firebase,
 //and store it (the user) inside our DB in Firebase.
 
-export const createUserProfileDocument =
- async (userAuth, additionalData) => {
+export const createUserProfileDocument = async (userAuth, additionalData) => {
 
 //If there is (no user logged in), exit from this function (return;).
 if(!userAuth) return; 
@@ -60,11 +59,9 @@ const snapShot = await userRef.get();
       console.log("error creating user", error.message);
     };
   }
-  else {
     return userRef;
-  }
+  
 } 
-
 
 // fetch the data from firestore:
 export const convertCollectionsSnapshotToMap = (collections) => {
