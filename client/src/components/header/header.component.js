@@ -13,12 +13,19 @@ import {connect} from "react-redux";
 import {createStructuredSelector} from "reselect";
 import {selectCartHidden} from "../../redux/cart/cart.selectors";
 import { selectCurrentUser } from "../../redux/user/user.selectors";
+import {SelectCartItems} from "../../redux/cart/cart.selectors";
+import {clearCart} from "../../redux/cart/cart.actions";
+
+import {withRouter, } from "react-router-dom";
 
 //styles components:
 import {HeaderContainer, LogoContainer, OptionsContainer,
 OptionLink} from "./header.styles";
 
-const Header = ({ currentUser, hidden }) => ( 
+const Header = ({ currentUser, hidden, clearMyCart }) => (
+
+
+     
      <HeaderContainer>
           <LogoContainer to="/">
                <Logo />
@@ -33,17 +40,29 @@ const Header = ({ currentUser, hidden }) => (
                {
                     currentUser 
                     ?
-                    (<OptionLink as="div"
-                    onClick={()=>{auth.signOut()}}>  
-                    SIGN OUT 
-                    </OptionLink>)
+                    (
+                        
+                         <OptionLink as="div"
+                           
+                              onClick={
+                              ()=>{auth.signOut();
+                              clearMyCart(SelectCartItems);
+                             
+                              }
+                              }
+                              
+                             >                           
+                         SIGN OUT
+                         </OptionLink>
+                    )
                     :
                     (
-                    <OptionLink
-                    to="/signin">
-                    SIGN IN
-                    </OptionLink>
+                         <OptionLink
+                              to="/signin">
+                              SIGN IN
+                         </OptionLink>
                     )
+                   
                }
                <CartIcon>
                    
@@ -57,12 +76,17 @@ const Header = ({ currentUser, hidden }) => (
                <CartDropDown />
           } */}
      </HeaderContainer>
+     
 )
+
 //setting up redux:
 
 const mapStateToProps = createStructuredSelector({
     currentUser: selectCurrentUser,
     hidden: selectCartHidden
 });
+const mapDispatchToProps = (dispatch) => ({
+     clearMyCart: items => dispatch(clearCart(items))
+})
 
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Header));

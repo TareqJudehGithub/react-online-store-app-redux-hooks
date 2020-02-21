@@ -6,7 +6,7 @@ import {clearItemFromCart, addItem, removeItem} from "../../redux/cart/cart.acti
 import {CheckoutContainer, ImageContainer, SpanStyle, Arrow,
          Quantity,Value, RemoveButton } from "./checkout-item.styles";
 
-const CheckoutItem = ({ cartItem, clearItem, increaseQuantity, decreaseQuantity }) => {
+const CheckoutItem = ({ cartItem, clearItem, increaseQuantity, decreaseQuantity, cartClear }) => {
      const { name, imageUrl, price, quantity } = cartItem;
      return (
              //passing the whole item
@@ -34,14 +34,15 @@ const CheckoutItem = ({ cartItem, clearItem, increaseQuantity, decreaseQuantity 
                     <SpanStyle>${price}</SpanStyle>
                     <RemoveButton
                     onClick={() => clearItem(cartItem)}> &#10008;
-                    </RemoveButton>
-               </CheckoutContainer>       
+                    </RemoveButton>     
+               </CheckoutContainer>   
      )
 }
 const mapDispatchToProps = (dispatch) => ({
      clearItem: item => dispatch(clearItemFromCart(item)),
      increaseQuantity: item => dispatch(addItem(item)),
      decreaseQuantity: item => dispatch(removeItem(item))
+   
 })
  export default connect(null, mapDispatchToProps)(CheckoutItem);
  

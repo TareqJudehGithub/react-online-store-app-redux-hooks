@@ -5,7 +5,7 @@ import {connect} from "react-redux";
 import {selectCollection} from "../../redux/shop/shop.selectors";
 import "./collection.styles.scss";
 
-const CollectionPage =  ({ collections }) => {
+const CollectionPage = ({ collections }) => {
      console.log(collections);
    const { title, items} = collections;
      return (

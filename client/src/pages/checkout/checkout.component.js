@@ -6,7 +6,6 @@ import {SelectCartItems, selectCartItemsCount} from "../../redux/cart/cart.selec
 import {selectCartTotal} from '../../redux/cart/cart.selectors';
 import CheckoutItem from "../../components/checkout-item/checkout-item.component";
 import StripeCheckoutButton from "../../components/stripe-button/stripe-button.component";
-
 import "./checkout.styles.scss";
 
 const CheckOutPage = ( { cartItems, total, itemCount }) => (
@@ -30,7 +29,7 @@ const CheckOutPage = ( { cartItems, total, itemCount }) => (
                <div className="header-block">
                     <span>Remove</span>
                </div>
-
+          
           </div>
           {
                cartItems.map(cartItem =>
@@ -46,15 +45,17 @@ const CheckOutPage = ( { cartItems, total, itemCount }) => (
           </div>
           
           <div className="btn-pay-now">
-               <StripeCheckoutButton price={total}/>
+               <StripeCheckoutButton price={total}                         
+               >
+               </StripeCheckoutButton>
           </div>
                
           <div className="test-warning">
               
-              <div className="note">Kindly use the following credit card for payments:
+              <div className="note-header">Kindly use this testing credit card<br/> for making payments:
               </div> 
 
-               <div>
+               <div className="note-body">
                     Card number: 4242 4242 4242 4242 
                     <br />
                     exp: (MM/YY) Any future date
@@ -70,6 +71,5 @@ const mapStateToProps = createStructuredSelector ({
      cartItems: SelectCartItems,
      total: selectCartTotal,
      itemCount: selectCartItemsCount
-})
-
+});
 export default connect(mapStateToProps) (CheckOutPage);
