@@ -7,7 +7,7 @@ import "./collection.styles.scss";
 
 const CollectionPage = ({ collections }) => {
      console.log(collections);
-   const { title, items} = collections;
+   const { title, items } = collections;
      return (
           <div className="collection-page">
                <h2 className="title">{title}</h2>
@@ -25,7 +25,7 @@ const CollectionPage = ({ collections }) => {
 }
 //ownProps here is the props of the component we are wrapping in connect()
 const mapStateToProps = (state, ownProps) => ({
-     collections: selectCollection(ownProps.match.params.collectionId)(state)
+     collections: selectCollection(ownProps.match.params.collectionID)(state)
 });
 
 export default connect(mapStateToProps)(CollectionPage);

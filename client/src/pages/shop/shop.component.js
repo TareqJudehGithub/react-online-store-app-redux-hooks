@@ -20,7 +20,7 @@ const ShopPage = ({ match, fetchCollections }) => {
                <Route exact path={`${match.path}`}
                     component={CollectionsOverViewContainer} />
                
-               <Route path={`${match.path}/:collectionId`}
+               <Route path={`${match.path}/:collectionID`}
                 component={CollectionContainer}/>               
           </div>    
           )  

@@ -36,13 +36,13 @@ export const selectCollection = collectionUrlParam => createSelector(
      )
 );
 
-//170
+//170 for the spinner animation - for /shop
 export const selectIsCollectionFetching = createSelector(
      [selectShop],
      (shop => shop.isFetching)
 );
 
-//171.
+//171 for the spinner animation - for /shop/:collectionID
 export const SelectIsCollectionsLoaded = createSelector(
      [selectShop],
      //if the collections object is loaded we'll get true,

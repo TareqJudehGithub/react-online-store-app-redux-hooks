@@ -3,13 +3,12 @@ import StripeCheckout from "react-stripe-checkout";
 
 import {connect} from "react-redux";
 import {clearCart} from "../../redux/cart/cart.actions";
-import {SelectCartItems} from "../../redux/cart/cart.selectors"
-
+import {SelectCartItems} from "../../redux/cart/cart.selectors";
+import {withRouter} from "react-router-dom";
 //210
 import axios from "axios"; 
 
-
-const StripeCheckoutButton = ({ price, clearCartAfterPay }) => {
+const StripeCheckoutButton = ({ price, clearCartAfterPay, history }) => {
      const priceForStripe = price * 100;
      const publishableKey = "pk_test_YXpV5Dm8rG7rmDxLlR9NWhyS00u9QKlt90";
 
@@ -25,8 +24,9 @@ const StripeCheckoutButton = ({ price, clearCartAfterPay }) => {
                         
           }) //if the payment was successful:
           .then(response => {
-               alert("Payment Successful!")
+               alert("Payment Successful!")  
                onclick= clearCartAfterPay(SelectCartItems)
+               onclick=history.push("/")          
           })
           .catch(error => {
                console.log("Payment error: ", JSON.parse(error));
@@ -35,9 +35,10 @@ const StripeCheckoutButton = ({ price, clearCartAfterPay }) => {
                      There was an issue with the payment.
                      Please check the provided credit card details.`);
           });
-         
      }
+
      return (
+          
           <StripeCheckout
           label="Place your order"
           name="React App Online Store"
@@ -50,9 +51,10 @@ const StripeCheckoutButton = ({ price, clearCartAfterPay }) => {
           token={onToken} //onSuccess callback that triggers on submition.
           stripeKey={publishableKey}   
           />      
+   
      );
 };
 const mapDispatchToProps = (dispatch) => ({
      clearCartAfterPay: items => dispatch(clearCart(items))
 })
-export default connect(null, mapDispatchToProps)(StripeCheckoutButton);
+export default connect(null, mapDispatchToProps)(withRouter(StripeCheckoutButton));

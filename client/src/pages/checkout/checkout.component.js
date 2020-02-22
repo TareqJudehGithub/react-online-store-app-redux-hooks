@@ -8,7 +8,10 @@ import CheckoutItem from "../../components/checkout-item/checkout-item.component
 import StripeCheckoutButton from "../../components/stripe-button/stripe-button.component";
 import "./checkout.styles.scss";
 
-const CheckOutPage = ( { cartItems, total, itemCount }) => (
+
+const CheckOutPage = ( { cartItems, total, itemCount }) => {
+
+return (
 
      <div className="checkout-page">
         <span className="title">Shopping Cart</span>
@@ -41,7 +44,20 @@ const CheckOutPage = ( { cartItems, total, itemCount }) => (
                )
           }
           <div className="total">
-               <span>Total ({itemCount} item): ${total}</span>
+               <span>
+                    {
+                         itemCount === 0 && total === 0
+                         ?
+                         null
+                         :
+                         itemCount <= 1
+                         ?
+                         `Total (${itemCount} item): $${total}`
+                         :
+                         `Total (${itemCount} items): $${total}` 
+                    }
+                                  
+                    </span>
           </div>
           
           <div className="btn-pay-now">
@@ -67,6 +83,7 @@ const CheckOutPage = ( { cartItems, total, itemCount }) => (
           
      </div>
 )
+ }
 const mapStateToProps = createStructuredSelector ({
      cartItems: SelectCartItems,
      total: selectCartTotal,
