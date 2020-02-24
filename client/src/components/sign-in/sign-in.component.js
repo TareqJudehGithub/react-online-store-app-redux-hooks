@@ -1,41 +1,31 @@
-import React, {useState, useRef, useEffect} from "react";
+import React from "react";
 import FormInput from "../form-input/form-input.component";
 import CustomButton from "../custom-button/custom-button-component";
-import  {signInWithGoogle, auth} from "../../firebase/firebase.utils";
+import {useState} from "react";
+//184. 185(emailSignInStart)
+import {googleSignInStart, emailSignInStart} from '../../redux/user/user.actions';
+import {connect} from 'react-redux';
 
 import "./sign-in.styles.scss";
 
-const Signin = () => {
-    
-          const [userCredentials, setUserCredentials ] = useState({
-               email: "",
-               password: ""
-          });
-          const persistDataOverRender = useRef({ willUnmount: false});
-          const { email, password } = userCredentials;
- 
-          useEffect(() => {
-               persistDataOverRender.current.willUnmount = true;
-          }, []);
+const Signin = ({ emailSignInStart, googleSignINStart}) => {
+
+     const [userCredentials, setuserCredentials] = useState({
+          email: "user@email.com",
+          password: "pass123"})
+                    
+     const { email, password } = userCredentials;
 
      const handleSumbit = async (event) => {
           event.preventDefault();
-          try {
-               await auth.signInWithEmailAndPassword(email, password);
-               !persistDataOverRender.current.willUnmount &&
-               setUserCredentials({ //clears the Sign In form
-                    email: "",
-                    password: ""    
-               });
-
-          } catch (error) {
-               console.log(error);
-          }
+        
+         
+          emailSignInStart(email, password)
 
      }
      const handleChange = (event) => {
           const { value, name } =event.target;
-          setUserCredentials({...userCredentials, [name]: value})
+          setuserCredentials({ ...userCredentials,[name]: value})
      }
 
      return (
@@ -71,7 +61,10 @@ const Signin = () => {
                     >Sign in</CustomButton>
 
                     <CustomButton
-                    onClick={signInWithGoogle}
+                    //184
+                    type="button"
+                    // onClick={signInWithGoogle}
+                    onClick={googleSignINStart}
                      isGoogleSignin>
                     Sign in with Google</CustomButton>
                     </div>
@@ -81,4 +74,12 @@ const Signin = () => {
           )
      
 }
-export default Signin;
+//184 + 185
+const mapDispatchToProps = (dispatch) => ({
+     googleSignINStart: () => dispatch(googleSignInStart()),
+     
+     emailSignInStart: (email, password) =>
+      dispatch(emailSignInStart({ email, password}))
+});
+
+export default connect(null, mapDispatchToProps)(Signin);

@@ -26,7 +26,7 @@ export const fetchCollectionsStartAsync = () => {
      //will switch the shop reducer state to true(default: ifFetching: false).
           dispatch(fetchCollectionsStart());
 
-     //C. then redux begings this async request:
+     //C. then redux begins this async request:
      //to get the data from collections:
           collectionRef
           .get()

@@ -87,19 +87,29 @@ export const convertCollectionsSnapshotToMap = (collections) => {
     } , {});
 }
 
+export const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = auth.onAuthStateChanged(userAuth => {
+      unsubscribe();
+      resolve(userAuth);    
+    }, reject)
+  });
+
+}
+
 //==================================
 
 //to setup the google auth
 
 //1. To get access to the  GoogleAuthProvider() from Google Authenticator Library.
-const provider = new firebase.auth.GoogleAuthProvider();
+export const googleProvider = new firebase.auth.GoogleAuthProvider();
 
 //2. We want to always triger the google popup whenever we use this Google
 // Auth Provider for authentication and sign in:
-provider.setCustomParameters({ prompt: "select_account" });
+googleProvider.setCustomParameters({ prompt: "select_account" });
 
 //3. to specify which sign in..the Google Authentication:
-export const signInWithGoogle = () => auth.signInWithPopup(provider);
+export const signInWithGoogle = () => auth.signInWithPopup(googleProvider);
 
 export default firebase;
 

@@ -1,11 +1,10 @@
 import React from "react";
 
-import { auth } from "../../firebase/firebase.utils";
 import {ReactComponent as Logo} from "../../assets/crown.svg";
 //cart
 import CartIcon from "../cart-icon/cart-icon.component";
 // import CartDropDown from "../cart-dropdown/cart-dropdown.component";
-
+import {signOutStart} from '../../redux/user/user.actions';
 //redux needed library.
 import {connect} from "react-redux";
 
@@ -25,7 +24,7 @@ import "./header.styles.scss";
 const styles={color: "blue", backgroundColor:"yellow"};
 
 
-const Header = ({ currentUser, hidden, clearMyCart }) => {
+const Header = ({ currentUser, hidden, clearMyCart, signOut }) => {
     
      return(
           
@@ -74,7 +73,7 @@ const Header = ({ currentUser, hidden, clearMyCart }) => {
                               <OptionLink as="div"
                               activeStyle={styles} to="/signin"   
                               onClick={
-                              ()=>{auth.signOut();
+                              ()=>{signOut();
                               clearMyCart(SelectCartItems);              
                               }
                               }            
@@ -128,7 +127,8 @@ const mapStateToProps = createStructuredSelector({
     
 });
 const mapDispatchToProps = (dispatch) => ({
-     clearMyCart: items => dispatch(clearCart(items))
+     clearMyCart: items => dispatch(clearCart(items)),
+     signOut: () => dispatch(signOutStart())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Header));
