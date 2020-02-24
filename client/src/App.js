@@ -58,6 +58,7 @@ const [isLoading, setIsLoading ] = useState(true);
     return (
       <div>
         <Header />
+         
           <Switch> 
             <Route exact path="/"
             render={(props) =>
@@ -69,10 +70,12 @@ const [isLoading, setIsLoading ] = useState(true);
               currentUser
               ?
               (<Redirect to ="/"/>)
+              
               :
               (<SignInandSingOut />)
               } />
-         </Switch>   
+         </Switch>  
+
       </div>
     );
 }

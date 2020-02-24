@@ -34,7 +34,6 @@ width: 23%;
 export const Value = styled.span`
 margin: 0 10px;
 `;
-
 export const RemoveButton = styled.div`
 padding-left: 12px;
 cursor: pointer;

@@ -21,21 +21,48 @@ import {withRouter, Redirect} from "react-router-dom";
 //styles components:
 import {HeaderContainer, LogoContainer, OptionsContainer,
 OptionLink} from "./header.styles";
-
+import "./header.styles.scss";
 const styles={color: "blue", backgroundColor:"yellow"};
 
 
-const Header = ({ currentUser, hidden, clearMyCart }) => (
-
+const Header = ({ currentUser, hidden, clearMyCart }) => {
+    
+     return(
+          
      <HeaderContainer>
           <LogoContainer to="/">
           {/* <NavLink activeStyle={styles} to="/signin">SIGN OUT</NavLink> */}
-               <Logo />
+          <ul>
+               <li><Logo /></li>
+        
+          <li>
+          {
+            currentUser
+            ?
+            <p>Hello, {currentUser.displayName}</p>
+            :
+            null
+          }
+          </li>
+          </ul>
+              
           </LogoContainer>
           <OptionsContainer>
                <OptionLink activeStyle={styles} to="/shop">             
                     SHOP               
                </OptionLink>
+               {/* <OptionLink>
+               {
+                    
+                    Object.keys(currentUser).map(({ id, displayName }) => (
+
+                         <div key={id}>
+                         <span >{displayName}</span>
+                         </div>
+                    ))
+               }
+               </OptionLink> */}
+             
                {/* <Link className="option" to="/shop">
                 CONTACT
                </Link> */}
@@ -43,7 +70,8 @@ const Header = ({ currentUser, hidden, clearMyCart }) => (
                     currentUser 
                     ?
                     (  
-                         <OptionLink as="div"
+                         <div>
+                              <OptionLink as="div"
                               activeStyle={styles} to="/signin"   
                               onClick={
                               ()=>{auth.signOut();
@@ -51,8 +79,19 @@ const Header = ({ currentUser, hidden, clearMyCart }) => (
                               }
                               }            
                              >   
-                            SIGN OUT                 
-                         </OptionLink>
+                             SIGN OUT
+{/*                                
+                                    {
+                                   <div style={{fontSize:"13px",
+                                   textAlign: "center",margin:"0 auto"}}>
+                                        <p>Hello, {currentUser.displayName}</p>
+                                   </div>              
+                                    } */}
+                              
+                              </OptionLink>
+                             
+                         </div>
+                         
                     )
                     :
                     (
@@ -79,13 +118,14 @@ const Header = ({ currentUser, hidden, clearMyCart }) => (
           } */}
      </HeaderContainer>
      
-)
-
+     )
+}
 //setting up redux:
 
 const mapStateToProps = createStructuredSelector({
     currentUser: selectCurrentUser,
     hidden: selectCartHidden
+    
 });
 const mapDispatchToProps = (dispatch) => ({
      clearMyCart: items => dispatch(clearCart(items))

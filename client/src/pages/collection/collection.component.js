@@ -6,7 +6,6 @@ import {selectCollection} from "../../redux/shop/shop.selectors";
 import "./collection.styles.scss";
 
 const CollectionPage = ({ collections }) => {
-     console.log(collections);
    const { title, items } = collections;
      return (
           <div className="collection-page">
@@ -25,6 +24,7 @@ const CollectionPage = ({ collections }) => {
 }
 //ownProps here is the props of the component we are wrapping in connect()
 const mapStateToProps = (state, ownProps) => ({
+     //collectionID is the paramater value of a specific collection page
      collections: selectCollection(ownProps.match.params.collectionID)(state)
 });
 

@@ -12,14 +12,16 @@ height: 70px;
      padding-right: 30px;
     top: 0;
     width: 100%;
-`
+    font-weight: 600;
+`;
 export const LogoContainer = styled(Link)`
 height: 100%;
 width: 70px;
 padding-left: 0px;
 margin-left: 10px;
 padding-top: 10px;
-`
+
+`;
 export const OptionsContainer = styled.div`
 width: 75%;
 height: 100%;
@@ -34,7 +36,8 @@ justify-content: flex-end;
 export const OptionLink = styled(NavLink)`
 padding: 7.5px 7.5px;
 cursor: pointer;
-`
+font-weight: inheret;
+`;
 // // export const OptionDiv = styled.div`
 // // ${OptionContainerStyles}
 // `

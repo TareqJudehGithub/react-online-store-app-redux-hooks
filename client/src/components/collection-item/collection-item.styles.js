@@ -50,7 +50,11 @@ margin-bottom: 15px;
 
 export const Price = styled.span`
 width: 10%;
-` 
+`; 
+export const Currency = styled.span`
+vertical-align:text-top ;
+font-size: 13.5px;
+`;
 export const AddButton = styled(CustomButton)`
   width: 65%;
   opacity: 0.7;

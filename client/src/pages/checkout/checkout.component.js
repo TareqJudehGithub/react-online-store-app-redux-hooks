@@ -50,7 +50,7 @@ return (
                          ?
                          null
                          :
-                         itemCount <= 1
+                         itemCount === 1
                          ?
                          `Total (${itemCount} item): $${total}`
                          :
