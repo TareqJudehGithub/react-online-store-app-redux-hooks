@@ -72,11 +72,10 @@ const Header = ({ currentUser, hidden, clearMyCart, signOut }) => {
                          <div>
                               <OptionLink as="div"
                               activeStyle={styles} to="/signin"   
-                              onClick={
-                              ()=>{signOut();
-                              clearMyCart(SelectCartItems);              
-                              }
-                              }            
+                              onClick={()=>{
+                                   signOut();
+                                   clearMyCart(SelectCartItems);              
+                              }}            
                              >   
                              SIGN OUT
 {/*                                

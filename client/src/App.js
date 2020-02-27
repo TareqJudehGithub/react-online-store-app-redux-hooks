@@ -22,9 +22,6 @@ import withSpinner from ".//components/with-spinner/with-spinner.component";
 
 import './App.css';
 
-
-
-
 const App = ({ checkSession, currentUser }) => {
 
   const HomePageWithSpinner = withSpinner(HomePage);

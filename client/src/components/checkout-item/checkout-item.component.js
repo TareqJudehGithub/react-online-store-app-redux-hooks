@@ -1,10 +1,12 @@
 import React from "react";
+// import "./checkout-item.styles.scss";
+//124. we need to bind our new action to the component here:
 import {connect} from "react-redux";
 import {clearItemFromCart, addItem, removeItem} from "../../redux/cart/cart.actions";
 import {CheckoutContainer, ImageContainer, SpanStyle, Arrow,
          Quantity,Value, RemoveButton } from "./checkout-item.styles";
 
-const CheckoutItem = ({ cartItem, clearItem, increaseQuantity, decreaseQuantity, cartClear }) => {
+const CheckoutItem = ({ cartItem, clearItem, increaseQuantity, decreaseQuantity }) => {
      const { name, imageUrl, price, quantity } = cartItem;
      return (
              //passing the whole item
@@ -28,11 +30,12 @@ const CheckoutItem = ({ cartItem, clearItem, increaseQuantity, decreaseQuantity,
                               &#8827;
                          </Arrow>
                     </Quantity>
+
                     <SpanStyle>${price}</SpanStyle>
                     <RemoveButton
                     onClick={() => clearItem(cartItem)}> &#10008;
-                    </RemoveButton>     
-               </CheckoutContainer>   
+                    </RemoveButton>
+               </CheckoutContainer>       
      )
 }
 const mapDispatchToProps = (dispatch) => ({
