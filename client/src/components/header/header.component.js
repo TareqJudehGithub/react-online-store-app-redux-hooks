@@ -24,15 +24,16 @@ import "./header.styles.scss";
 const styles={color: "blue", backgroundColor:"yellow"};
 
 
+
 const Header = ({ currentUser, hidden, clearMyCart, signOut }) => {
-    
+
      return(
           
      <HeaderContainer>
           <LogoContainer to="/">
           {/* <NavLink activeStyle={styles} to="/signin">SIGN OUT</NavLink> */}
           <ul>
-               <li><Logo /></li>
+               <li><Logo/></li>
         
           <li>
           {
